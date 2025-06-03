@@ -1,8 +1,8 @@
 const word = document.getElementById('word');
-const speed = 1; // velocidade em pixels por frame (mais baixo = mais devagar)
+const speed = 1;
 
-let posX = 100;  // posição inicial X
-let posY = 100;  // posição inicial Y
+let posX = 50;  // Posição inicial X menor pra mobile
+let posY = 50;  // Posição inicial Y menor pra mobile
 
 let velX = speed;
 let velY = speed;
@@ -15,23 +15,25 @@ const updatePosition = () => {
   const w = rect.width;
   const h = rect.height;
 
-  // Atualiza posição
   posX += velX;
   posY += velY;
 
-  // Checa colisão nas bordas da janela
-  if (posX + w >= vw || posX <= 0) {
+  // Checa colisão (com margem de 10px pra não encostar totalmente)
+  if (posX + w >= vw - 10 || posX <= 10) {
     velX = -velX;
   }
-  if (posY + h >= vh || posY <= 0) {
+  if (posY + h >= vh - 10 || posY <= 10) {
     velY = -velY;
   }
 
-  // Aplica posição no elemento
   word.style.transform = `translate(${posX}px, ${posY}px)`;
-
   requestAnimationFrame(updatePosition);
 };
 
-// Começa o loop de animação
+// Redimensiona o layout quando a tela muda de tamanho
+window.addEventListener('resize', () => {
+  posX = Math.min(posX, window.innerWidth - word.offsetWidth - 20);
+  posY = Math.min(posY, window.innerHeight - word.offsetHeight - 20);
+});
+
 updatePosition();
