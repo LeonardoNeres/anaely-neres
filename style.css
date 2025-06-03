@@ -1,17 +1,11 @@
-/* Adiciona o viewport no CSS (mas o ideal é no HTML mesmo) */
-@viewport {
-  width: device-width;
-  zoom: 1.0;
-}
-
 body {
   background: #000;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Mudei de height para min-height */
+  min-height: 100vh;
   margin: 0;
-  overflow: hidden; /* Evita barras de rolagem durante a animação */
+  overflow: hidden;
 }
 
 #word {
@@ -19,40 +13,41 @@ body {
   top: 0;
   left: 0;
   display: flex;
-  gap: 8px; /* Reduzi o espaço entre as letras pra mobile */
+  gap: 8px;
   will-change: transform;
 }
 
 .letter {
   display: grid;
-  grid-template-columns: repeat(5, 5vw); /* Unidade relativa (vw) */
-  grid-template-rows: repeat(5, 5vw);    /* Mesmo tamanho que as colunas */
+  grid-template-columns: repeat(5, 5vw);
+  grid-template-rows: repeat(5, 5vw);
   gap: 1px;
   user-select: none;
 }
 
+/* ANIMAÇÃO DOS CORAÇÕES (AGORA FUNCIONANDO EM MOBILE) */
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
 .letter span {
   color: #1E90FF;
-  font-size: 4vw; /* Tamanho relativo à largura da tela */
+  font-size: 4vw;
   line-height: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: pulse 1.5s infinite ease-in-out;
+  animation: heartPulse 1.5s infinite ease-in-out;
+  transform-origin: center; /* Garante que o pulso sai do centro */
 }
 
-/* Media Query para telas maiores (PC) */
+/* Versão para PC (tela maior) */
 @media (min-width: 768px) {
-  #word {
-    gap: 12px; /* Espaço maior entre letras em PCs */
-  }
-  
+  #word { gap: 12px; }
   .letter {
     grid-template-columns: repeat(5, 28px);
     grid-template-rows: repeat(5, 28px);
   }
-  
-  .letter span {
-    font-size: 28px; /* Tamanho fixo pra PC */
-  }
+  .letter span { font-size: 28px; }
 }
