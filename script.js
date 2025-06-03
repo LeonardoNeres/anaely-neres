@@ -37,3 +37,11 @@ window.addEventListener('resize', () => {
 });
 
 updatePosition();
+
+// Efeito quando clica/toca nos corações (opcional)
+document.querySelectorAll('.letter span').forEach(coracao => {
+  coracao.addEventListener('click', () => {
+    coracao.style.transform = 'scale(1.8)';
+    setTimeout(() => { coracao.style.transform = 'scale(1)'; }, 300);
+  });
+});
