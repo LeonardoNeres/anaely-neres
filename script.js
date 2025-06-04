@@ -1,47 +1,53 @@
 const word = document.getElementById('word');
-const speed = 1;
+const speed = 0.8;
 
-let posX = 50;  // Posição inicial X menor pra mobile
-let posY = 50;  // Posição inicial Y menor pra mobile
-
+let posX = 50;
+let posY = 50;
 let velX = speed;
 let velY = speed;
 
-const updatePosition = () => {
+function updateMobileLayout() {
+  const isMobile = window.innerWidth < 768;
+
+  document.querySelectorAll('.letter').forEach(letter => {
+    const indexes = letter.dataset.mobile.split(',').map(Number);
+    letter.querySelectorAll('span').forEach((span, index) => {
+      span.style.display = isMobile
+        ? (indexes.includes(index + 1) ? 'flex' : 'none')
+        : 'flex';
+    });
+  });
+}
+
+function updatePosition() {
+  const margin = window.innerWidth < 768 ? 5 : 10;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-
-  const rect = word.getBoundingClientRect();
-  const w = rect.width;
-  const h = rect.height;
 
   posX += velX;
   posY += velY;
 
-  // Checa colisão (com margem de 10px pra não encostar totalmente)
-  if (posX + w >= vw - 10 || posX <= 10) {
-    velX = -velX;
-  }
-  if (posY + h >= vh - 10 || posY <= 10) {
-    velY = -velY;
-  }
+  if (posX + word.offsetWidth >= vw - margin || posX <= margin) velX = -velX;
+  if (posY + word.offsetHeight >= vh - margin || posY <= margin) velY = -velY;
 
   word.style.transform = `translate(${posX}px, ${posY}px)`;
   requestAnimationFrame(updatePosition);
-};
+}
 
-// Redimensiona o layout quando a tela muda de tamanho
 window.addEventListener('resize', () => {
   posX = Math.min(posX, window.innerWidth - word.offsetWidth - 20);
   posY = Math.min(posY, window.innerHeight - word.offsetHeight - 20);
+  updateMobileLayout();
 });
 
-updatePosition();
+window.addEventListener('load', () => {
+  updateMobileLayout();
+  updatePosition();
+});
 
-// Efeito quando clica/toca nos corações (opcional)
 document.querySelectorAll('.letter span').forEach(coracao => {
-  coracao.addEventListener('click', () => {
-    coracao.style.transform = 'scale(1.8)';
-    setTimeout(() => { coracao.style.transform = 'scale(1)'; }, 300);
+  coracao.addEventListener('click', function () {
+    this.style.transform = 'scale(1.8)';
+    setTimeout(() => { this.style.transform = 'scale(1)'; }, 300);
   });
 });
