@@ -17,18 +17,20 @@ body {
 @media (max-width: 767px) {
   .letter {
     display: grid;
-    grid-template-columns: repeat(3, 16px);
-    grid-template-rows: repeat(3, 16px);
+    grid-template-columns: repeat(3, 12px); /* Reduzido de 16px pra 12px */
+    grid-template-rows: repeat(3, 12px);
   }
+
   .letter span {
-    font-size: 16px;
+    font-size: 12px; /* Reduzido de 16px pra 12px */
     display: none;
-    color: #00aaff; /* 💙 cor azul */
+    color: #00aaff;
     animation: heartPulse 2s infinite;
     justify-content: center;
     align-items: center;
   }
 }
+
 
 /* DESKTOP */
 @media (min-width: 768px) {
