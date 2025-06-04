@@ -8,34 +8,47 @@ body {
 #word {
   position: fixed;
   display: flex;
-  gap: 4px; /* Espaço menor entre letras */
+  gap: 10px;
   will-change: transform;
+  padding: 10px;
 }
 
-/* Tamanho dos corações para CELULAR */
-.letter {
-  display: grid;
-  grid-template-columns: repeat(5, 14px); /* Tamanho fixo pequeno */
-  grid-template-rows: repeat(5, 14px);
+/* MOBILE */
+@media (max-width: 767px) {
+  .letter {
+    display: grid;
+    grid-template-columns: repeat(3, 16px);
+    grid-template-rows: repeat(3, 16px);
+  }
+  .letter span {
+    font-size: 16px;
+    display: none;
+    color: #00aaff; /* 💙 cor azul */
+    animation: heartPulse 2s infinite;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
-.letter span {
-  color: #1E90FF;
-  font-size: 14px; /* Tamanho fixo igual ao grid */
-  animation: heartPulse 1.5s infinite;
+/* DESKTOP */
+@media (min-width: 768px) {
+  .letter {
+    display: grid;
+    grid-template-columns: repeat(5, 28px);
+    grid-template-rows: repeat(5, 28px);
+  }
+  .letter span {
+    font-size: 28px;
+    display: flex;
+    color: #00aaff; /* 💙 cor azul */
+    justify-content: center;
+    align-items: center;
+    animation: heartPulse 2s infinite;
+  }
 }
+
 
 @keyframes heartPulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.3); }
-}
-
-/* Versão para PC (se quiser manter) */
-@media (min-width: 768px) {
-  .letter {
-    grid-template-columns: repeat(5, 28px);
-    grid-template-rows: repeat(5, 28px);
-  }
-  .letter span { font-size: 28px; }
-  #word { gap: 12px; }
 }
