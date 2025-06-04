@@ -17,12 +17,12 @@ body {
 @media (max-width: 767px) {
   .letter {
     display: grid;
-    grid-template-columns: repeat(3, 12px); /* Reduzido de 16px pra 12px */
+    grid-template-columns: repeat(3, 12px);
     grid-template-rows: repeat(3, 12px);
   }
 
   .letter span {
-    font-size: 12px; /* Reduzido de 16px pra 12px */
+    font-size: 10px;
     display: none;
     color: #00aaff;
     animation: heartPulse 2s infinite;
@@ -32,7 +32,7 @@ body {
 }
 
 
-/* DESKTOP */
+/* PC*/
 @media (min-width: 768px) {
   .letter {
     display: grid;
@@ -42,7 +42,7 @@ body {
   .letter span {
     font-size: 28px;
     display: flex;
-    color: #00aaff; /* 💙 cor azul */
+    color: #00aaff;
     justify-content: center;
     align-items: center;
     animation: heartPulse 2s infinite;
